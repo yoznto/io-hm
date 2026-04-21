@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人簡介 - RWD 示範</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin-top: 50px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 切換按鈕樣式 */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* --- 判斷邏輯：桌面端顯示 --- */
+        @media screen and (min-width: 769px) {
+            body { background-color: #e3f2fd; } /* 桌面端背景淺藍 */
+            .device-info::before {
+                content: "💻 當前環境：桌面版瀏覽器";
+                color: var(--primary-color);
+                font-weight: bold;
+            }
+            .container { border-top: 5px solid var(--primary-color); }
+        }
+
+        /* --- 判斷邏輯：手機端顯示 --- */
+        @media screen and (max-width: 768px) {
+            body { background-color: #fff3e0; } /* 手機端背景淺橘 */
+            .device-info::before {
+                content: "📱 當前環境：行動裝置版本";
+                color: #e67e22;
+                font-weight: bold;
+            }
+            .container { width: 95%; margin-top: 20px; }
+            .tab-btn { flex: 1; text-align: center; } /* 按鈕撐滿 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="device-info"></div>
+    <hr>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showContent('intro', this)">個人簡介</button>
+        <button class="tab-btn" onclick="showContent('skills', this)">興趣專長</button>
+    </div>
+
+    <div id="intro" class="content-section active">
+        <h2>關於我</h2>
+        <p>你好！我是來自朝陽科技大學資工系的學生。我熱衷於研究新科技與網頁開發。</p>
+    </div>
+
+    <div id="skills" class="content-section">
+        <h2>興趣與專長</h2>
+        <ul>
+            <li>程式語言：C/C++, Python</li>
+            <li>硬體控制：STM32, Arduino</li>
+            <li>興趣：技術討論、Minecraft 模組研究、投資理財</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // 切換內容的邏輯
+    function showContent(id, btn) {
+        // 隱藏所有區塊
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        // 移除按鈕 active 樣式
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active');
+        });
+        
+        // 顯示指定區塊
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
